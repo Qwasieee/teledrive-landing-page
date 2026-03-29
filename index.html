@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>TeleDrive — Your Telegram-powered personal drive</title>
+  <meta name="description" content="Store all your files in your own Telegram account. No subscriptions, no limits, no third-party servers. Free and private." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Config (edit this to point to your repos) -->
+  <script src="js/config.js"></script>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ NAVIGATION -->
+  <nav class="nav">
+    <div class="nav__inner">
+
+      <a class="nav__logo" href="#">
+        <div class="nav__logo-icon">
+          <!-- Telegram-style plane icon -->
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M2 9L15.5 3L11 15L8.5 10.5L2 9Z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/>
+            <path d="M8.5 10.5L11 8" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        TeleDrive
+      </a>
+
+      <a class="nav__cta" href="#download">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7.5 2v8M4 7.5l3.5 3 3.5-3M2.5 12.5h10"/>
+        </svg>
+        <span>Download</span>
+      </a>
+
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════ HERO -->
+  <section class="hero" id="download">
+    <div class="container">
+
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        Free early access — no account needed
+      </div>
+
+      <h1 class="hero__title">All your files,<br>inside Telegram.</h1>
+
+      <p class="hero__sub">
+        TeleDrive uses your own Telegram account as a personal cloud drive.
+        <strong>No monthly fees. No storage limits. Completely private.</strong>
+      </p>
+
+      <!-- Download buttons — populated automatically from GitHub releases -->
+      <div class="download">
+        <div class="download__buttons" id="dl-buttons-container">
+          <span class="download__state">Loading…</span>
+        </div>
+        <div class="download__meta" id="dl-meta"></div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════ QUICK TRUST STRIP -->
+  <div class="proof">
+    <div class="proof__inner">
+
+      <div class="proof__item">
+        <svg class="proof__item-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 2L11 7h5l-4 3 1.5 5L9 12l-4.5 3L6 10 2 7h5L9 2z"/>
+        </svg>
+        No storage limits
+      </div>
+
+      <div class="proof__item">
+        <svg class="proof__item-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="8" width="12" height="8" rx="2"/>
+          <path d="M6 8V6a3 3 0 1 1 6 0v2"/>
+        </svg>
+        Your data stays yours
+      </div>
+
+      <div class="proof__item">
+        <svg class="proof__item-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="9" r="7"/>
+          <path d="M5 9l3 3 5-5"/>
+        </svg>
+        Free, no subscription
+      </div>
+
+      <div class="proof__item">
+        <svg class="proof__item-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="14" height="12" rx="2"/>
+          <path d="M2 7h14"/>
+          <path d="M6 3v4M12 3v4"/>
+        </svg>
+        Windows · macOS · Linux · Android · iOS
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ FEATURES -->
+  <section class="features" id="features">
+    <div class="container">
+
+      <div class="section-header section-header--center">
+        <div class="section-label">What you get</div>
+        <h2 class="section-title">A real drive, not a workaround.</h2>
+        <p class="section-desc">Everything you expect from a cloud drive — built on top of Telegram's infrastructure.</p>
+      </div>
+
+      <div class="features__grid">
+
+        <div class="feat">
+          <div class="feat__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z"/>
+              <path d="M8 10l2.5 2.5L15 8"/>
+            </svg>
+          </div>
+          <div class="feat__title">Unlimited storage</div>
+          <div class="feat__desc">Telegram stores your files for free with no cap. Upload as much as you want — documents, videos, photos, backups.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 4h12v3l-5 5v6l-2-1v-5L5 7V4z"/>
+            </svg>
+          </div>
+          <div class="feat__title">Folders &amp; file management</div>
+          <div class="feat__desc">Create folders, move files, rename, copy, delete. Feels just like your phone's file manager.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="3"/>
+              <path d="M5 11H2M20 11h-3M11 5V2M11 20v-3"/>
+              <path d="M7.05 7.05L4.93 4.93M17.07 17.07l-2.12-2.12M16.95 7.05l2.12-2.12M4.93 17.07l2.12-2.12"/>
+            </svg>
+          </div>
+          <div class="feat__title">Play videos &amp; music</div>
+          <div class="feat__desc">Stream your videos and music directly from Telegram — no waiting to download first. Jump to any point instantly.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>
+              <path d="M8 12l3 3 3-3"/>
+              <path d="M11 15V4"/>
+            </svg>
+          </div>
+          <div class="feat__title">Transfers in the background</div>
+          <div class="feat__desc">Upload or download multiple files at once while you keep using the app. Pause and resume any time.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="M8 11h6M11 8v6"/>
+            </svg>
+          </div>
+          <div class="feat__title">Share with a link</div>
+          <div class="feat__desc">Generate a shareable link for any file. Anyone can download it — they don't need TeleDrive or Telegram.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="11" r="3"/>
+              <circle cx="16" cy="7" r="3"/>
+              <circle cx="16" cy="15" r="3"/>
+              <path d="M10.8 9.5l2.5-1.5M10.8 12.5l2.5 1.5"/>
+            </svg>
+          </div>
+          <div class="feat__title">Multiple accounts</div>
+          <div class="feat__desc">Add multiple Telegram accounts and switch between them. Each gets its own separate storage.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+              <rect x="12" y="3" width="7" height="7" rx="1.5"/>
+              <rect x="3" y="12" width="7" height="7" rx="1.5"/>
+              <rect x="12" y="12" width="7" height="7" rx="1.5"/>
+            </svg>
+          </div>
+          <div class="feat__title">Photo &amp; video gallery</div>
+          <div class="feat__desc">Browse all your images and videos in a beautiful gallery view. No digging through folders.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10" cy="10" r="6"/>
+              <path d="M17 17l-3-3"/>
+            </svg>
+          </div>
+          <div class="feat__title">Fast search</div>
+          <div class="feat__desc">Find any file in seconds by name. Works across all your folders and accounts instantly.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat__icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6h14M4 11h14M4 16h7"/>
+            </svg>
+          </div>
+          <div class="feat__title">Works on every device</div>
+          <div class="feat__desc">One app for Windows, macOS, Linux, Android, and iOS. Your files go with you everywhere.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════ HOW IT WORKS -->
+  <section class="how" id="setup">
+    <div class="container">
+
+      <div class="section-header section-header--center">
+        <div class="section-label">Getting started</div>
+        <h2 class="section-title">Ready in a few minutes.</h2>
+        <p class="section-desc">You only need a Telegram account and a couple of free credentials.</p>
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step__num">1</div>
+          <div>
+            <div class="step__title">Download TeleDrive for your device</div>
+            <p class="step__desc">Pick the version for your phone or computer from the download buttons above. Open the installer and follow the prompts — it's just like installing any other app.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__num">2</div>
+          <div>
+            <div class="step__title">Get your free Telegram API credentials</div>
+            <p class="step__desc">
+              Visit <a href="https://my.telegram.org" target="_blank" rel="noopener">my.telegram.org</a> in your browser,
+              log in with your Telegram phone number, go to <strong>API development tools</strong>,
+              fill in any app name, and copy the two values it gives you: <strong>App api_id</strong> and <strong>App api_hash</strong>.
+              This takes about 2 minutes and is completely free.
+            </p>
+            <span class="step__note">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="7" cy="7" r="5.5"/>
+                <path d="M7 4.5v3M7 9.5v.5"/>
+              </svg>
+              These credentials are private and only stored on your device.
+            </span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__num">3</div>
+          <div>
+            <div class="step__title">Create a <code style="font-family:monospace;font-size:0.9em;background:var(--bg-card2);border:1px solid var(--border-hi);border-radius:5px;padding:2px 7px;color:var(--accent)">.env</code> file next to the app</div>
+            <p class="step__desc">In the same folder where you put TeleDrive, create a plain text file called <code style="font-family:monospace;font-size:0.9em;background:var(--bg-card2);border:1px solid var(--border-hi);border-radius:5px;padding:2px 7px;color:var(--accent)">.env</code> and paste your credentials:</p>
+            <pre style="margin-top:14px;background:var(--bg-card);border:1px solid var(--border-hi);border-radius:10px;padding:18px 20px;font-size:13px;color:#7dd3fc;font-family:'Courier New',monospace;line-height:1.8;overflow-x:auto;">TELEGRAM_API_ID=<span style="color:#94a3b8">paste your api_id here</span>
+TELEGRAM_API_HASH=<span style="color:#94a3b8">paste your api_hash here</span></pre>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__num">4</div>
+          <div>
+            <div class="step__title">Open TeleDrive and log in</div>
+            <p class="step__desc">Launch the app. It will ask for your Telegram phone number and a verification code — the same way you log into Telegram on a new device. Once you're in, TeleDrive automatically sets up your private storage channel. You're done.</p>
+            <span class="step__note">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2.5 7.5l3 3 6-6"/>
+              </svg>
+              No extra accounts or sign-ups required.
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ CTA BAND -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-banner__inner">
+        <h2 class="cta-banner__title">Ready to try it?</h2>
+        <p class="cta-banner__sub">Download is free. No account, no card, no catch.</p>
+        <a class="btn-primary-lg" href="#download">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 3v9M5 9l4 4 4-4M3 15h12"/>
+          </svg>
+          Download TeleDrive
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════ FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__copy">© 2026 TeleDrive. Early access.</p>
+      <div class="footer__links">
+        <a id="footer-all-releases" href="#" target="_blank" rel="noopener">All versions</a>
+        <a id="footer-report" href="#" target="_blank" rel="noopener">Report a problem</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════ RELEASE SCRIPT -->
+  <script src="js/releases.js"></script>
+
+  <!-- Wire up footer links after config is loaded -->
+  <script>
+    (function () {
+      var cfg = window.TELEDRIVE_CONFIG || {};
+      var allReleases = document.getElementById("footer-all-releases");
+      var report      = document.getElementById("footer-report");
+      if (allReleases) allReleases.href = "https://github.com/" + cfg.RELEASE_REPO + "/releases";
+      if (report)      report.href      = "https://github.com/" + cfg.SOURCE_REPO  + "/issues";
+    })();
+  </script>
+
+</body>
+</html>
