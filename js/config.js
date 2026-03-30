@@ -6,7 +6,6 @@
    ========================================================= */
 
 window.TELEDRIVE_CONFIG = {
-
   /*
    * The PUBLIC repo where releases are mirrored.
    * This is what the download buttons fetch from.
@@ -22,9 +21,8 @@ window.TELEDRIVE_CONFIG = {
 
   /*
    * Your private source repo.
-   * Used for the "Report a problem" issues link.
-   * (Visitors will hit a 404 if they click it — that's fine.)
+   * Only used for the "Report a problem" issues link in the footer.
+   * Releases are published directly in RELEASE_REPO above.
    */
   SOURCE_REPO: "Qwasieee/teledrive",
-
 };

@@ -1,8 +1,7 @@
 /* =========================================================
    TeleDrive — releases.js
    Fetches the latest GitHub release and renders download buttons.
-   Assets are hosted on SourceForge; URLs are parsed from the
-   release body (SF_ASSET lines written by the mirror workflow).
+   Assets are attached directly to the release in this repo.
    ========================================================= */
 
 (function () {
@@ -106,25 +105,6 @@
     if (el) el.innerHTML = html;
   }
 
-  /* ── Parse SourceForge assets from release body ──────────── */
-  // The mirror workflow appends lines like:
-  //   SF_ASSET: TeleDrive-1.0.0-windows.exe | https://sourceforge.net/...
-  function parseSFAssets(body) {
-    if (!body) return [];
-    const assets = [];
-    const lines = body.split("\n");
-    for (const line of lines) {
-      const match = line.match(/^SF_ASSET:\s*(.+?)\s*\|\s*(https?:\/\/.+)$/);
-      if (match) {
-        assets.push({
-          name: match[1].trim(),
-          browser_download_url: match[2].trim(),
-        });
-      }
-    }
-    return assets;
-  }
-
   /* ── Button renderer ─────────────────────────────────────── */
   function renderButtons(assets, tagName, publishedAt, releaseUrl) {
     const container = qs("#dl-buttons-container");
@@ -219,11 +199,12 @@
 
       const data = await res.json();
 
-      // Prefer SourceForge assets parsed from body; fall back to attached GitHub assets
-      const sfAssets = parseSFAssets(data.body);
-      const assets = sfAssets.length ? sfAssets : data.assets;
-
-      renderButtons(assets, data.tag_name, data.published_at, data.html_url);
+      renderButtons(
+        data.assets,
+        data.tag_name,
+        data.published_at,
+        data.html_url,
+      );
     } catch (err) {
       console.error("TeleDrive release fetch failed:", err);
       setError(
