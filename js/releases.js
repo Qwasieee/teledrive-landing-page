@@ -1,63 +1,65 @@
 /* =========================================================
    TeleDrive — releases.js
    Fetches the latest GitHub release and renders download buttons.
+   Assets are hosted on SourceForge; URLs are parsed from the
+   release body (SF_ASSET lines written by the mirror workflow).
    ========================================================= */
 
 (function () {
-
   /* ── Config (set in index.html via window.TELEDRIVE_CONFIG) ── */
   const CFG = window.TELEDRIVE_CONFIG || {};
   const RELEASE_REPO = CFG.RELEASE_REPO || "";
-  const SOURCE_REPO  = CFG.SOURCE_REPO  || "";
+  const SOURCE_REPO = CFG.SOURCE_REPO || "";
 
   /* ── Platform detection ──────────────────────────────────── */
   const ua = navigator.userAgent.toLowerCase();
 
   function detectOS() {
-    if (/android/.test(ua))          return "android";
+    if (/android/.test(ua)) return "android";
     if (/iphone|ipad|ipod/.test(ua)) return "ios";
-    if (/win/.test(ua))              return "windows";
-    if (/mac/.test(ua))              return "macos";
-    if (/linux/.test(ua))            return "linux";
+    if (/win/.test(ua)) return "windows";
+    if (/mac/.test(ua)) return "macos";
+    if (/linux/.test(ua)) return "linux";
     return "unknown";
   }
 
   /* Map asset filename → platform info */
   const PLATFORMS = [
     {
-      id:    "windows",
+      id: "windows",
       label: "Windows",
-      icon:  "windows",
-      match: name => /\.(exe|msix|msi)$/i.test(name),
+      icon: "windows",
+      match: (name) => /\.(exe|msix|msi)$/i.test(name),
     },
     {
-      id:    "macos",
+      id: "macos",
       label: "macOS",
-      icon:  "apple",
-      match: name => /\.(dmg|pkg)$/i.test(name),
+      icon: "apple",
+      match: (name) => /\.(dmg|pkg)$/i.test(name),
     },
     {
-      id:    "linux",
+      id: "linux",
       label: "Linux",
-      icon:  "linux",
-      match: name => /\.(appimage|deb|rpm)$/i.test(name) || /linux.*\.tar\.gz$/i.test(name),
+      icon: "linux",
+      match: (name) =>
+        /\.(appimage|deb|rpm)$/i.test(name) || /linux.*\.tar\.gz$/i.test(name),
     },
     {
-      id:    "android",
+      id: "android",
       label: "Android",
-      icon:  "android",
-      match: name => /\.apk$/i.test(name),
+      icon: "android",
+      match: (name) => /\.apk$/i.test(name),
     },
     {
-      id:    "ios",
+      id: "ios",
       label: "iOS",
-      icon:  "apple",
-      match: name => /\.ipa$/i.test(name),
+      icon: "apple",
+      match: (name) => /\.ipa$/i.test(name),
     },
   ];
 
   function matchPlatform(assetName) {
-    return PLATFORMS.find(p => p.match(assetName)) || null;
+    return PLATFORMS.find((p) => p.match(assetName)) || null;
   }
 
   /* ── SVG icon sprites ────────────────────────────────────── */
@@ -84,7 +86,9 @@
   };
 
   /* ── DOM helpers ─────────────────────────────────────────── */
-  function qs(sel) { return document.querySelector(sel); }
+  function qs(sel) {
+    return document.querySelector(sel);
+  }
 
   function setLoading(msg) {
     const el = qs("#dl-buttons-container");
@@ -93,12 +97,32 @@
 
   function setError(msg) {
     const el = qs("#dl-buttons-container");
-    if (el) el.innerHTML = `<span class="download__state download__state--error">${msg}</span>`;
+    if (el)
+      el.innerHTML = `<span class="download__state download__state--error">${msg}</span>`;
   }
 
   function setMeta(html) {
     const el = qs("#dl-meta");
     if (el) el.innerHTML = html;
+  }
+
+  /* ── Parse SourceForge assets from release body ──────────── */
+  // The mirror workflow appends lines like:
+  //   SF_ASSET: TeleDrive-1.0.0-windows.exe | https://sourceforge.net/...
+  function parseSFAssets(body) {
+    if (!body) return [];
+    const assets = [];
+    const lines = body.split("\n");
+    for (const line of lines) {
+      const match = line.match(/^SF_ASSET:\s*(.+?)\s*\|\s*(https?:\/\/.+)$/);
+      if (match) {
+        assets.push({
+          name: match[1].trim(),
+          browser_download_url: match[2].trim(),
+        });
+      }
+    }
+    return assets;
   }
 
   /* ── Button renderer ─────────────────────────────────────── */
@@ -111,7 +135,7 @@
 
     /* Group assets by platform */
     const groups = {};
-    assets.forEach(asset => {
+    assets.forEach((asset) => {
       const pl = matchPlatform(asset.name);
       if (!pl) return;
       if (!groups[pl.id]) groups[pl.id] = { platform: pl, assets: [] };
@@ -121,7 +145,11 @@
     const platformList = Object.values(groups);
 
     if (platformList.length === 0) {
-      setError('No downloads found yet. <a href="https://github.com/' + RELEASE_REPO + '/releases" target="_blank" rel="noopener">Check releases →</a>');
+      setError(
+        'No downloads found yet. <a href="https://github.com/' +
+          RELEASE_REPO +
+          '/releases" target="_blank" rel="noopener">Check releases →</a>',
+      );
       return;
     }
 
@@ -130,21 +158,22 @@
       const aMatch = a.platform.id === detectedOS;
       const bMatch = b.platform.id === detectedOS;
       if (aMatch && !bMatch) return -1;
-      if (bMatch && !aMatch) return  1;
-      const ai = PLATFORMS.findIndex(p => p.id === a.platform.id);
-      const bi = PLATFORMS.findIndex(p => p.id === b.platform.id);
+      if (bMatch && !aMatch) return 1;
+      const ai = PLATFORMS.findIndex((p) => p.id === a.platform.id);
+      const bi = PLATFORMS.findIndex((p) => p.id === b.platform.id);
       return ai - bi;
     });
 
     /* Render a button per platform (use first asset if multiple) */
     platformList.forEach((group, i) => {
       const asset = group.assets[0];
-      const pl    = group.platform;
-      const isPrimary = (i === 0);
+      const pl = group.platform;
+      const isPrimary = i === 0;
 
       const btn = document.createElement("a");
-      btn.href      = asset.browser_download_url;
-      btn.className = "btn-dl " + (isPrimary ? "btn-dl--primary" : "btn-dl--secondary");
+      btn.href = asset.browser_download_url;
+      btn.className =
+        "btn-dl " + (isPrimary ? "btn-dl--primary" : "btn-dl--secondary");
       btn.innerHTML = (ICONS[pl.icon] || ICONS.download) + pl.label;
 
       container.appendChild(btn);
@@ -152,13 +181,15 @@
 
     /* Meta line below buttons */
     const date = new Date(publishedAt).toLocaleDateString("en-US", {
-      year: "numeric", month: "short", day: "numeric",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
 
     setMeta(
       `${tagName}&nbsp;<span class="download__meta-sep">·</span>&nbsp;${date}&nbsp;` +
-      `<span class="download__meta-sep">·</span>&nbsp;` +
-      `<a href="${releaseUrl}" target="_blank" rel="noopener">What's new →</a>`
+        `<span class="download__meta-sep">·</span>&nbsp;` +
+        `<a href="${releaseUrl}" target="_blank" rel="noopener">What's new →</a>`,
     );
   }
 
@@ -174,11 +205,10 @@
     try {
       const res = await fetch(
         `https://api.github.com/repos/${RELEASE_REPO}/releases/latest`,
-        { headers: { Accept: "application/vnd.github+json" } }
+        { headers: { Accept: "application/vnd.github+json" } },
       );
 
       if (res.status === 404) {
-        /* No release yet — show a friendly message */
         setError("No release available yet. Check back soon.");
         return;
       }
@@ -188,14 +218,18 @@
       }
 
       const data = await res.json();
-      renderButtons(data.assets, data.tag_name, data.published_at, data.html_url);
 
+      // Prefer SourceForge assets parsed from body; fall back to attached GitHub assets
+      const sfAssets = parseSFAssets(data.body);
+      const assets = sfAssets.length ? sfAssets : data.assets;
+
+      renderButtons(assets, data.tag_name, data.published_at, data.html_url);
     } catch (err) {
       console.error("TeleDrive release fetch failed:", err);
       setError(
         `Couldn't load download info. ` +
-        `<a href="https://github.com/${RELEASE_REPO}/releases" target="_blank" rel="noopener">` +
-        `See all releases →</a>`
+          `<a href="https://github.com/${RELEASE_REPO}/releases" target="_blank" rel="noopener">` +
+          `See all releases →</a>`,
       );
     }
   }
@@ -206,5 +240,4 @@
   } else {
     loadRelease();
   }
-
 })();
