@@ -1,2 +1,4 @@
 mirror-release.yml
 instructions.md
+context_copier.py
+outputs/
