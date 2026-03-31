@@ -124,6 +124,15 @@
 
     const platformList = Object.values(groups);
 
+    // Mark unavailable platforms in the UI panel
+    document.querySelectorAll(".platform").forEach((el) => {
+      const os = el.getAttribute("data-os");
+      if (!groups[os]) {
+        el.classList.add("platform--unavailable");
+        el.title = "Unavailable";
+      }
+    });
+
     if (platformList.length === 0) {
       setError(
         'No downloads found yet. <a href="https://github.com/' +
