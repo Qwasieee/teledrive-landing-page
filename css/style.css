@@ -119,7 +119,7 @@ a { color: inherit; text-decoration: none; }
   min-height: calc(100dvh - 58px);
   display: flex;
   align-items: center;
-  padding: 64px 0;
+  padding: 32px 0;
   border-bottom: 1px solid var(--line);
   scroll-margin-top: 58px;
 }

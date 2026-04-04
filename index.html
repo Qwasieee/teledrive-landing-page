@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TeleDrive — Your Telegram-powered personal drive</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='24' height='24' rx='6' fill='%232AABEE'/%3E%3Cpath d='M7 12C7 9.24 9.24 7 12 7s5 2.24 5 5-2.24 5-5 5' stroke='%23fff' stroke-width='1.6' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='12' r='1.5' fill='%23fff'/%3E%3Cpath d='M12 14.5v3' stroke='%23fff' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
     <meta
       name="description"
       content="Store all your files in your own Telegram account. No subscriptions, no limits, no third-party servers. Free and private."
@@ -82,10 +87,10 @@
           </div>
           <div class="download__meta" id="dl-meta"></div>
           <div class="panel__platforms">
-            <span class="platform" data-os="windows">Windows</span> · 
-            <span class="platform" data-os="macos">macOS</span> · 
+            <span class="platform" data-os="windows">Windows</span> ·
+            <span class="platform" data-os="macos">macOS</span> ·
             <span class="platform" data-os="linux">Linux</span><br />
-            <span class="platform" data-os="android">Android</span> · 
+            <span class="platform" data-os="android">Android</span> ·
             <span class="platform" data-os="ios">iOS</span>
           </div>
         </div>
@@ -221,16 +226,21 @@
       // --- Highlight current platform ---
       (function () {
         var ua = navigator.userAgent.toLowerCase();
-        var os = '';
-        if (ua.indexOf('win') !== -1) os = 'windows';
-        else if (ua.indexOf('android') !== -1) os = 'android';
-        else if (ua.indexOf('linux') !== -1) os = 'linux';
-        else if (ua.indexOf('like mac') !== -1 || ua.indexOf('iphone') !== -1 || ua.indexOf('ipad') !== -1) os = 'ios';
-        else if (ua.indexOf('mac') !== -1) os = 'macos';
-        
+        var os = "";
+        if (ua.indexOf("win") !== -1) os = "windows";
+        else if (ua.indexOf("android") !== -1) os = "android";
+        else if (ua.indexOf("linux") !== -1) os = "linux";
+        else if (
+          ua.indexOf("like mac") !== -1 ||
+          ua.indexOf("iphone") !== -1 ||
+          ua.indexOf("ipad") !== -1
+        )
+          os = "ios";
+        else if (ua.indexOf("mac") !== -1) os = "macos";
+
         if (os) {
           var el = document.querySelector('.platform[data-os="' + os + '"]');
-          if (el) el.classList.add('platform--active');
+          if (el) el.classList.add("platform--active");
         }
       })();
 
@@ -284,20 +294,21 @@
         document.querySelectorAll('a[href="#download"]').forEach(function (a) {
           a.addEventListener("click", function (e) {
             e.preventDefault();
-            var target = window.innerWidth <= 820 
-              ? document.querySelector(".hero__panel") 
-              : document.querySelector(".hero");
-            
+            var target =
+              window.innerWidth <= 820
+                ? document.querySelector(".hero__panel")
+                : document.querySelector(".hero");
+
             if (target) {
               target.scrollIntoView({ behavior: "smooth" });
             }
-            
+
             if (history.pushState) {
               history.pushState(null, null, "#download");
             } else {
               window.location.hash = "#download";
             }
-            
+
             setTimeout(triggerHighlight, 450);
           });
         });
@@ -326,19 +337,22 @@
 
       // --- Hide Appbar Download Button base on Hero Visibility ---
       (function () {
-        var navDl = document.querySelector('.nav__dl');
-        var hero = document.querySelector('.hero');
+        var navDl = document.querySelector(".nav__dl");
+        var hero = document.querySelector(".hero");
         if (!navDl || !hero) return;
 
-        var observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              navDl.classList.add('nav__dl--hidden');
-            } else {
-              navDl.classList.remove('nav__dl--hidden');
-            }
-          });
-        }, { threshold: 0 });
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                navDl.classList.add("nav__dl--hidden");
+              } else {
+                navDl.classList.remove("nav__dl--hidden");
+              }
+            });
+          },
+          { threshold: 0 },
+        );
 
         observer.observe(hero);
       })();
